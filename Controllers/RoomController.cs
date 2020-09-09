@@ -44,7 +44,7 @@ namespace HotelWebApi.Controllers
         public IHttpActionResult PostBookingAvailableRooms(BookingAvailabilityViewModel model)
         {
             var rooms = RoomRepository.GetAllItems().AsEnumerable().Where(R => R.BranchId == model.BranchId)
-                                                    .Select(R => R.Bookings.All(b => (b.StartDate != model.StartDate) && (b.EndDate != model.EndDate) &&
+                                                    .Where(R => R.Bookings.All(b => (b.StartDate != model.StartDate) && (b.EndDate != model.EndDate) &&
                                                                                      (b.StartDate > model.EndDate) && 
                                                                                      (b.EndDate < model.StartDate) ));
             if(rooms == null)
